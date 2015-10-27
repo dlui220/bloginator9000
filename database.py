@@ -13,10 +13,13 @@ def makeTables():
     c.execute("create table if not exists user (username text UNIQUE, password text, CHECK(username <> ''), CHECK(password <> ''))")
     conn.commit()
 
-def makeTablesM():
-    db.createCollection("post")
-    db.createCollection("comment")
-    db.createCollection("user")
+#def makeTablesM():
+#db.createCollection("post")
+#    db.createCollection("comment")
+#   db.createCollection("user")    
+
+#--------------------------------------------------------------------------------------------------------------------------
+    
 
 def addPost(title, body, userid):
     try:
@@ -28,6 +31,7 @@ def addPost(title, body, userid):
     except:
         return False
 
+    
 def addPostM(title, body, userid):
     try:
         db.post.insert({Title: title, Body: body, UserID: userid})
@@ -35,6 +39,10 @@ def addPostM(title, body, userid):
     except:
         return False
 
+#--------------------------------------------------------------------------------------------------------------------------
+    
+
+    
 def getPosts():
     conn = sqlite3.connect("bloginator9000.db")
     c = conn.cursor()
@@ -44,6 +52,13 @@ def getPosts():
     data = [dict(zip(['title','blogtext','postid','username','date'], each)) for each in data]
     return data
 
+def getPostsM():
+    data = db.posts.find();
+    data = 
+#--------------------------------------------------------------------------------------------------------------------------
+    
+
+    
 def getPost(key, postid):
     conn = sqlite3.connect("bloginator9000.db")
     c = conn.cursor()
@@ -51,6 +66,10 @@ def getPost(key, postid):
     data = c.fetchall()
     data = [dict(zip(['title','blogtext','postid','username','date'], each)) for each in data]
     return data
+
+
+#--------------------------------------------------------------------------------------------------------------------------
+    
 
 def addComment(body, replyid, userid):
     try:
@@ -62,6 +81,10 @@ def addComment(body, replyid, userid):
     except:
         return False
 
+#--------------------------------------------------------------------------------------------------------------------------
+    
+
+    
 def getComments(key, postid):
     conn = sqlite3.connect("bloginator9000.db")
     c = conn.cursor()
@@ -70,6 +93,10 @@ def getComments(key, postid):
     data.reverse()
     data = [dict(zip(['commenttext','commentid','postid','username','date'], each)) for each in data]
     return data
+
+#--------------------------------------------------------------------------------------------------------------------------
+    
+
 
 def newUser(username, password):
     try:
@@ -83,6 +110,10 @@ def newUser(username, password):
     except:
         return False
 
+#--------------------------------------------------------------------------------------------------------------------------
+    
+
+    
 def authenticate(username, password):
     conn = sqlite3.connect("bloginator9000.db")
     c = conn.cursor()
@@ -96,3 +127,8 @@ def authenticate(username, password):
     if s2 == m:
         return True
     return False
+
+def authenticateM(username, password):
+    m = hashli.sha224(password).hexdigest()
+    db.user.find(username:
+
