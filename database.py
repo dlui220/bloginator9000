@@ -1,4 +1,9 @@
 import sqlite3, hashlib
+from pymongo import MongoClient
+
+connection = MongoClient()
+
+db = connection['bloginator9000']
 
 def makeTables():
     conn = sqlite3.connect("bloginator9000.db")
@@ -8,12 +13,24 @@ def makeTables():
     c.execute("create table if not exists user (username text UNIQUE, password text, CHECK(username <> ''), CHECK(password <> ''))")
     conn.commit()
 
+def makeTablesM():
+    db.createCollection("post")
+    db.createCollection("comment")
+    db.createCollection("user")
+
 def addPost(title, body, userid):
     try:
         conn = sqlite3.connect("bloginator9000.db")
         c = conn.cursor()
         c.execute("insert into post values (?, ?, NULL, ?, datetime(CURRENT_TIMESTAMP))",(title, body, userid))
         conn.commit()
+        return True
+    except:
+        return False
+
+def addPostM(title, body, userid):
+    try:
+        db.post.insert({Title: title, Body: body, UserID: userid})
         return True
     except:
         return False
