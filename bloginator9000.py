@@ -24,7 +24,7 @@ def login():
             return render_template("/login.html", current_user = None)
     else:
         username = request.form.get("login")
-        if (database.authenticate(username, request.form.get("password"))):
+        if (database.authenticateM(username, request.form.get("password"))):
             session['user'] = username
             session.permanent = True
             app.permanent_session_lifetime = timedelta(minutes = 60);
@@ -42,7 +42,7 @@ def signup():
             return render_template("/signup.html", current_user = session.get('user'))
     else:
         if request.form.get("password") == request.form.get("password2"):
-            if database.newUser(request.form.get("login"), request.form.get("password")):
+            if database.newUserM(request.form.get("login"), request.form.get("password")):
                 return redirect("/login")
             else:
                 error = "Username has already been taken"

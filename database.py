@@ -1,9 +1,16 @@
+
 import sqlite3, hashlib
 from pymongo import MongoClient
 
 connection = MongoClient()
 
 db = connection['bloginator9000']
+db.user.insert({"username":"george","password":"pass"})
+db.user.insert({"username":"ge3orge","password":"2pass"})
+db.user.insert({"username":"g2eorge","password":"p3ass"})
+
+print db.user.find()
+#print db.user()
 
 def makeTables():
     conn = sqlite3.connect("bloginator9000.db")
@@ -52,9 +59,10 @@ def getPosts():
     data = [dict(zip(['title','blogtext','postid','username','date'], each)) for each in data]
     return data
 
-def getPostsM():
-    data = db.posts.find();
-    data = 
+#
+#def getPostsM():
+ #   data = db.posts.find();
+  #  data = 
 #--------------------------------------------------------------------------------------------------------------------------
     
 
@@ -110,6 +118,15 @@ def newUser(username, password):
     except:
         return False
 
+def newUserM(usrname, password):
+    try:
+        m = hashlib.sha224(password)
+        db.user.insert_one({"username":usrname,"password":password})
+        return True
+    except:
+        return False
+
+    
 #--------------------------------------------------------------------------------------------------------------------------
     
 
@@ -128,7 +145,13 @@ def authenticate(username, password):
         return True
     return False
 
-def authenticateM(username, password):
-    m = hashli.sha224(password).hexdigest()
-    db.user.find(username:
+def authenticateM(usrname, password):
+    m = hashlib.sha224(password).hexdigest()
+    hashpass = db.user.find({"username":usrname},"password")
+    if hashpass == None:
+        return False
+    if m == hashpass:
+        return True
+    return False
+    
 
