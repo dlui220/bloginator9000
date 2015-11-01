@@ -5,9 +5,6 @@ from pymongo import MongoClient
 connection = MongoClient()
 
 db = connection['bloginator9000']
-db.user.insert({"username":"george","password":"pass"})
-db.user.insert({"username":"ge3orge","password":"2pass"})
-db.user.insert({"username":"g2eorge","password":"p3ass"})
 
 print db.user.find()
 #print db.user()
@@ -121,7 +118,7 @@ def newUser(username, password):
 def newUserM(usrname, password):
     try:
         m = hashlib.sha224(password)
-        db.user.insert_one({"username":usrname,"password":password})
+        db.user.insert_one({"username":usrname,"password":m.hexdigest()})
         return True
     except:
         return False
@@ -147,11 +144,14 @@ def authenticate(username, password):
 
 def authenticateM(usrname, password):
     m = hashlib.sha224(password).hexdigest()
-    hashpass = db.user.find({"username":usrname},"password")
-    if hashpass == None:
-        return False
-    if m == hashpass:
-        return True
+    hashpass = db.user.find({"username":usrname},{"password":1})
+    for blah in hashpass:
+        #print m
+        #print blah["password"]
+        if blah["password"] == None:
+            return False
+        if m == blah["password"]:
+            return True
     return False
     
 
