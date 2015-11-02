@@ -1,12 +1,12 @@
 
-import sqlite3, hashlib
+import sqlite3, hashlib, datetime, pymongo
 from pymongo import MongoClient
 
 connection = MongoClient()
 
 db = connection['bloginator9000']
 
-print db.user.find()
+#print db.user.find()
 #print db.user()
 
 def makeTables():
@@ -38,7 +38,7 @@ def addPost(title, body, userid):
     
 def addPostM(title, body, userid):
     try:
-        db.post.insert({Title: title, Body: body, UserID: userid})
+        db.post.insert({"title": title, "blogtext": body, "username": userid, "date": datetime.datetime.now()})
         return True
     except:
         return False
@@ -56,10 +56,14 @@ def getPosts():
     data = [dict(zip(['title','blogtext','postid','username','date'], each)) for each in data]
     return data
 
-#
-#def getPostsM():
- #   data = db.posts.find();
-  #  data = 
+
+def getPostsM():
+    data = db.post.find().sort("date", pymongo.DESCENDING)
+    datalist=[]
+    for blah in data:
+        datalist.append(blah)
+    #print(datalist[0])
+    return datalist
 #--------------------------------------------------------------------------------------------------------------------------
     
 

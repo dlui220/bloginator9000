@@ -37,6 +37,7 @@
   font-weight: normal;
   color: black;
   font-size: 28px;
+  word-wrap: break-word;
 }
 .blog-post {
   margin-right: auto;
@@ -74,6 +75,7 @@
   min-height: 100px;
   max-height: 150px;
   overflow: hidden;
+  word-wrap: break-word;
 }
 .login {
   width: 380px;

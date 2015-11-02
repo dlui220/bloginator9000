@@ -8,8 +8,8 @@ app = Flask(__name__)
 @app.route("/index")
 @app.route("/blog")
 def index():
-    database.makeTables();
-    return render_template ("/blog.html", current_user = session.get('user'),  blogitems = database.getPosts())
+    #database.makeTables()
+    return render_template ("/blog.html", current_user = session.get('user'),  blogitems = database.getPostsM())
 
 @app.route("/about")
 def about():
@@ -76,7 +76,7 @@ def makepost():
             return render_template("/makepost.html", current_user = session.get('user'))
     else:
         form = request.form
-        database.addPost(form.get("title"), form.get("paragraph_text"), session['user'])
+        database.addPostM(form.get("title"), form.get("paragraph_text"), session['user'])
         return redirect("/")
 
 @app.route("/user")
