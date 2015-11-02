@@ -1,6 +1,7 @@
 
 import sqlite3, hashlib, datetime, pymongo
 from pymongo import MongoClient
+from bson.objectid import ObjectId
 
 connection = MongoClient()
 
@@ -76,6 +77,17 @@ def getPost(key, postid):
     data = [dict(zip(['title','blogtext','postid','username','date'], each)) for each in data]
     return data
 
+def getPostM(key, postid):
+    if(key=='_id'):
+        data = db.post.find({'_id':ObjectId(postid)})
+    else:
+        data = db.post.find({'username':postid})
+    datalist = []
+    for blah in data:
+        datalist.append(blah)
+    print(datalist)
+    print("HERE")
+    return datalist
 
 #--------------------------------------------------------------------------------------------------------------------------
     

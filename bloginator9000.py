@@ -59,13 +59,13 @@ def logout():
 @app.route("/post/<postid>", methods=["GET", "POST"])
 def post(postid):
     if request.method == "GET":
-        return render_template("/post.html", current_user = session.get('user'), blogitem = database.getPost("postid",postid)[0], comments = database.getComments("postid", postid))
+        return render_template("/post.html", current_user = session.get('user'), blogitem = database.getPostM("_id",postid)[0], comments = database.getComments("postid", postid))
     else:
         if 'user' in session:
             database.addComment(request.form.get("comment_text"), postid, session['user'])
             return redirect("/post/" + postid)
         else:
-            return render_template("/post.html", current_user = session.get('user'),  blogitem = database.getPost("postid",postid)[0], comments = database.getComments("postid",postid), error = "You must be logged in to do that")
+            return render_template("/post.html", current_user = session.get('user'),  blogitem = database.getPostM("_id",postid)[0], comments = database.getComments("postid",postid), error = "You must be logged in to do that")
 
 @app.route("/makepost", methods=["GET", "POST"])
 def makepost():
@@ -87,7 +87,7 @@ def getuser():
 
 @app.route("/user/<userid>")
 def profile(userid):
-    return render_template("profile.html", current_user = session.get('user'), profile_user = userid, blogitems = database.getPost("userid",userid), comments = database.getComments("userid",userid));
+    return render_template("profile.html", current_user = session.get('user'), profile_user = userid, blogitems = database.getPostM("userid",userid), comments = database.getComments("userid",userid));
 
 if __name__ == "__main__":
     app.debug = True
