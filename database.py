@@ -81,12 +81,12 @@ def getPostM(key, postid):
     if(key=='_id'):
         data = db.post.find({'_id':ObjectId(postid)})
     else:
-        data = db.post.find({'username':postid})
+        data = db.post.find({'username':postid}).sort('date',pymongo.DESCENDING)
     datalist = []
     for blah in data:
         datalist.append(blah)
-    print(datalist)
-    print("HERE")
+    #print(datalist)
+    #print("HERE")
     return datalist
 
 #--------------------------------------------------------------------------------------------------------------------------
