@@ -132,6 +132,7 @@
 .post-text {
   padding-top: 30px;
   font-size: 16px;
+  word-wrap: break-word;
 }
 .comment-text {
   resize: none;
@@ -142,6 +143,7 @@
   margin-right: auto;
   display: block;
   padding: 5px;
+  word-wrap: break-word;
 }
 .comment-text:focus {
   outline: none;
@@ -151,6 +153,7 @@
   font-weight: normal;
   color: black;
   font-size: 24px;
+  word-wrap: break-word;
 }
 .comment-submit {
   margin-top: 20px;
