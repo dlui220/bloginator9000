@@ -102,6 +102,13 @@ def addComment(body, replyid, userid):
     except:
         return False
 
+def addCommentM(body, replyid, userid):
+    try:
+        db.comment.insert({'commenttext':body, 'postid':replyid, 'username':userid, 'date':datetime.datetime.now()})
+        return True
+    except:
+        return False
+
 #--------------------------------------------------------------------------------------------------------------------------
     
 
@@ -114,6 +121,16 @@ def getComments(key, postid):
     data.reverse()
     data = [dict(zip(['commenttext','commentid','postid','username','date'], each)) for each in data]
     return data
+
+def getCommentsM(key, postid):
+    if(key=="postid"):
+        data = db.comment.find({'postid':postid}).sort('date',pymongo.DESCENDING)
+    else:
+        data = db.comment.find({'username':postid}).sort('date',pymongo.DESCENDING)
+    datalist = []
+    for blah in data:
+        datalist.append(blah)
+    return datalist
 
 #--------------------------------------------------------------------------------------------------------------------------
     
