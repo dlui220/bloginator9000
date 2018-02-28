@@ -1,8 +1,5 @@
 #bloginator9000
-The greatest blog engine you will ever use. Want your voice heard? Sick of
-Facebook's complicated and cluttered interface? Is your grandma posting
-embarrassing comments for all your friends to see? Well we at blogginator9000
-promise that we can solve about two-thirds of those problems! Try it now!
+The greatest blog engine you will ever use. Want your voice heard? Try it now!
 You could be the 1 to push us OVER 9000!!!!!
 <hr>
 
